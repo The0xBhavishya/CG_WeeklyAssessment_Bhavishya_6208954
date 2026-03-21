@@ -6,11 +6,9 @@ test("task5", async ({page}) => {
     await page.locator("//input[@id='nav-search-submit-button']").press("Enter")
     await page.waitForTimeout(5000)
     await page.locator("//span[text()='Get It by Tomorrow']").click()
-
     let b = await page.locator("//h2[@class='a-size-base-plus a-spacing-none a-color-base a-text-normal']").nth(4).textContent()
     console.log(b);
     let a = await page.locator("//span[@class='a-price-whole']").nth(4).textContent()
     console.log(a);
-
     await page.screenshot({path:"task5.png", fullPage:true})
 })
