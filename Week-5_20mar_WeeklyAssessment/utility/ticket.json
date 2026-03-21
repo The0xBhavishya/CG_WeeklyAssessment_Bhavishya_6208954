@@ -1,0 +1,7 @@
+{
+    "subject" : "this is ticket subject",
+    "tasktype" :"Option 1",
+    "prioritytype" : "Important" ,
+    "description": "this is description for ticket"
+ 
+}
