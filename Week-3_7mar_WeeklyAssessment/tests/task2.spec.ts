@@ -9,5 +9,5 @@ test("olympic-task", async({page})=>{
     let s_medal=await page.locator('//div[@class="sc-ce26874d-10 fOoPCV"]/descendant::span[@class="Medal-styles__Medal-sc-645148e1-1 fqHqIZ"]/span').innerText()
     console.log(s_medal)
     let date_and_time=new Date().getTime()
-    await page.screenshot({path:`task2.png`})
+    await page.screenshot({path:`Week3task2.png`})
 })

@@ -18,6 +18,5 @@ test("test", async ({ page }) => {
     .first()
     .innerText();
   console.log(`Run of ${player1} is `, runs);
-
-  await page.screenshot({path:`task3.png`})
+  await page.screenshot({ path: "crickbuzz.png" });
 });
