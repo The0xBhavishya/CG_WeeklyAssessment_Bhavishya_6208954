@@ -4,6 +4,7 @@ import data from '../Pom/booking.json'
 test('API testing', async({request})=>{
     let baseURL = data.baseURL;
 
+    // r1: login and get token
     let r1 = await request.post(`${baseURL}/auth`, {
         data: {
             username: data.username,
@@ -12,10 +13,10 @@ test('API testing', async({request})=>{
     })
     console.log(await r1.json());
     expect(r1.status()).toBe(200);
-  let token = (await r1.json()).token;
+    let token = (await r1.json()).token;
     console.log(token);
 
-
+    // r2: get all bookings
     let r2 = await request.get(`${baseURL}/booking`, {
         ignoreHTTPSErrors: true
     })
@@ -25,25 +26,16 @@ test('API testing', async({request})=>{
     let bookingId = (await r2.json())[0].bookingid;
     console.log(bookingId);
 
-
-    
-
-
+    // r3: get booking by id
     let r3 = await request.get(`${baseURL}/booking/${bookingId}`, {
         ignoreHTTPSErrors: true
     })
     console.log(await r3.status());
     console.log(await r3.json());
-
-
     expect(r3.status()).toBe(200);
     expect((await r3.json()).totalprice).toBeGreaterThan(0);
 
-
-
-
-
-
+    // r4: create new booking
     let r4 = await request.post(`${baseURL}/booking`, {
         data: {
             firstname: data.firstname,
@@ -57,9 +49,6 @@ test('API testing', async({request})=>{
             additionalneeds: data.additionalneeds
         }, ignoreHTTPSErrors: true
     })
-
-
-
     console.log(await r4.status());
     console.log(await r4.json());
     expect(r4.status()).toBe(200);
@@ -72,10 +61,7 @@ test('API testing', async({request})=>{
     let newBookingId = (await r4.json()).bookingid;
     console.log(newBookingId);
 
-
-  
-
-
+    // r5: update booking (PUT)
     let r5 = await request.put(`${baseURL}/booking/${newBookingId}`, {
         headers: {
             Cookie: `token=${token}`
@@ -92,8 +78,6 @@ test('API testing', async({request})=>{
             additionalneeds: data.additionalneeds
         }, ignoreHTTPSErrors: true
     })
-
-
     console.log(await r5.status());
     console.log(await r5.json());
     expect(r5.status()).toBe(200);
@@ -102,7 +86,7 @@ test('API testing', async({request})=>{
     expect((await r5.json()).totalprice).toBe(data.totalprice);
     expect((await r5.json()).depositpaid).toBe(data.depositpaid);
 
-  
+    // r6: partial update (PATCH)
     let r6 = await request.patch(`${baseURL}/booking/${newBookingId}`, {
         headers: {
             Cookie: `token=${token}`
@@ -118,19 +102,13 @@ test('API testing', async({request})=>{
     expect((await r6.json()).firstname).toBe(data.partialFirstname);
     expect((await r6.json()).lastname).toBe(data.partialLastname);
 
-
-     let r7 = await request.delete(`${baseURL}/booking/${newBookingId}`, {
+    // r7: delete booking
+    let r7 = await request.delete(`${baseURL}/booking/${newBookingId}`, {
         headers: {
             Cookie: `token=${token}`
         }, ignoreHTTPSErrors: true
     })
     console.log(await r7.status());
     expect(r7.status()).toBe(201);
-
-
-
-
-
-
 
 })
