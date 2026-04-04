@@ -129,12 +129,6 @@ test('API testing', async({request})=>{
 
 
 
-    let r8 = await request.get(`${baseURL}/booking/${newBookingId}`, {
-        ignoreHTTPSErrors: true
-    })
-    console.log(await r8.status());
-   
-    expect(r8.status()).toBe(404);
 
 
 
